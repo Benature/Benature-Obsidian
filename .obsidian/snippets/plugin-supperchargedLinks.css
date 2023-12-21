@@ -1,0 +1,109 @@
+.data-link-text[data-link-category="meeting"],
+.data-link-text[data-link-category="group"],
+.data-link-text[data-link-gender],
+.data-link-text[data-link-tags^="课程"],
+.data-link-text[data-link-tags^="影视"],
+.data-link-text[data-link-tags*="DDS/M"],
+[data-link-tags="researcher"] {
+  background-color: rgba(54, 54, 194, 0.534);
+  border-radius: 3px;
+  padding: 0px 2px;
+}
+.data-link-text[data-link-tags*="#日记"]:not(.elegant-btn) {
+  background-color: rgba(12, 195, 219, 0.226);
+  color: rgb(176, 175, 204) !important;
+  border-radius: 3px;
+  padding: 0px 4px;
+}
+.data-link-text[data-link-tags*="#日记/周"] {
+  background-color: rgba(12, 195, 219, 0.4) !important;
+  color: rgb(238, 193, 180) !important;
+}
+
+.data-link-text::before {
+  font-size: 14px;
+  color: rgba(0, 0, 0, 0.8);
+}
+
+/* category */
+.data-link-text[data-link-category="meeting" i]::before {
+  content: "📇 ";
+}
+.data-link-text[data-link-category="group" i]::before {
+  content: "👥 ";
+}
+
+/* tags */
+.data-link-text[data-link-tags="researcher" i]::before {
+  content: "👨‍🎓 ";
+}
+
+.data-link-text[data-link-gender="female" i]::before {
+  content: "👱🏻‍♀️ ";
+}
+.data-link-text[data-link-gender="male" i]::before {
+  content: "👱🏻‍♂️ ";
+}
+
+.data-link-text[data-link-tags*="DDS/M" i]::before {
+  content: "💾 ";
+}
+
+.data-link-text[data-link-tags^="课程" i]::before {
+  content: "📝 ";
+}
+
+.data-link-text[data-link-tags^="影视" i]::before {
+  content: "📺 ";
+}
+.data-link-text[data-link-tags^="日记" i]:not(.elegant-btn)::before {
+  content: "📅 ";
+}
+
+.data-link-text[data-link-tags^="podcaster" i]::before {
+  content: "🎧";
+}
+
+.data-link-text[data-link-tags^="书" i]::before {
+  content: "📖";
+}
+.data-link-text[data-link-tags^="书"],
+.data-link-text[data-link-tags^="podcaster"] {
+  background-color: rgba(35, 121, 179, 0.692);
+  border-radius: 3px;
+  padding: 0 0 0 2px;
+}
+
+.data-link-text[data-link-tags*="A/"] {
+  margin-right: 1px;
+}
+.data-link-text[data-link-tags*="A/"]::after {
+  font-size: 8px;
+  font-weight: 700;
+  position: relative;
+  top: -6px;
+}
+/* .data-link-text[data-link-data-href^="@"]::after,
+.data-link-text[href^="@"]::after {
+  content: "?";
+  color: rgb(67, 66, 66);
+} */
+.data-link-text[data-link-tags*="A/other"]::after {
+  content: "x";
+  color: rgb(172, 171, 171);
+}
+.data-link-text[data-link-tags*="A/CCF/A/"][data-link-data-href^="@"]::after,
+.data-link-text[data-link-tags*="A/CCF/A/"][data-href^="@"]::after {
+  content: "A";
+  color: #c72626;
+}
+.data-link-text[data-link-tags*="A/CCF/B/"][data-link-data-href^="@"]::after,
+.data-link-text[data-link-tags*="A/CCF/B/"][data-href^="@"]::after {
+  content: "B";
+  color: #db880d;
+}
+.data-link-text[data-link-tags*="A/CCF/C/"][data-link-data-href^="@"]::after,
+.data-link-text[data-link-tags*="A/CCF/C/"][data-href^="@"]::after {
+  content: "C";
+  color: #74a14c;
+}

@@ -1,0 +1,3 @@
+:not(a, .cm-hmd-internal-link, .cm-link-alias) > .pandoc-citation.is-resolved {
+  color: #b087bd;
+}

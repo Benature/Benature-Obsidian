@@ -1,0 +1,83 @@
+/* span.cm-hashtag-begin.cm-tag-paperBackground{
+  background-color: royalblue;
+} */
+/* span.cm-hashtag{
+  color: white !important;
+  font-weight: 700;
+} */
+
+.theme-dark,
+.theme-light {
+  --tag-bg: royalblue;
+  --tag-radius: 4px;
+  --tag-color: white;
+}
+
+body:not(.minimal-unstyled-tags) .cm-s-obsidian span.cm-hashtag,
+body:not(.minimal-unstyled-tags) .frontmatter-container .tag,
+body:not(.minimal-unstyled-tags) a.tag {
+  /* background-color: var(--tag-bg);
+  border: var(--tag-border-width) solid var(--background-modifier-border);
+  color: var(--tag-color);
+  font-size: calc(var(--font-adaptive-normal) * .8);
+  vertical-align: middle;
+  display: inline-block;
+  margin: 1px 0;
+  border-radius: var(--tag-radius); */
+  /* font-family: "Microsoft Sans Serif"; */
+  font-weight: 500;
+  /* padding: 1px 2px 1px 7px; */
+}
+
+body:not(.minimal-unstyled-tags) .cm-s-obsidian span.cm-hashtag.cm-tag-practice,
+body:not(.minimal-unstyled-tags) a.tag[href^="#A/"] {
+  font-weight: 800;
+  letter-spacing: 1px;
+  border-radius: 10px;
+  padding: 3px 10px;
+  color: white;
+}
+body:not(.minimal-unstyled-tags) .cm-s-obsidian span.cm-hashtag.cm-tag-practice,
+body:not(.minimal-unstyled-tags) a.tag[href^="#A/CCF/A"] {
+  /* background-color: #c72626cd; */
+  background: linear-gradient(to right, #ca8787, #c72626);
+}
+body:not(.minimal-unstyled-tags) .cm-s-obsidian span.cm-hashtag.cm-tag-practice,
+body:not(.minimal-unstyled-tags) a.tag[href^="#A/CCF/B"] {
+  /* background-color: #db890dcd; */
+  background: linear-gradient(to right, #d5af75, #c0780c);
+}
+body:not(.minimal-unstyled-tags) .cm-s-obsidian span.cm-hashtag.cm-tag-practice,
+body:not(.minimal-unstyled-tags) a.tag[href^="#A/CCF/C"] {
+  /* background-color: #74a14ccd; */
+  background: linear-gradient(to right, #9bbd7c, #54a111);
+}
+body:not(.minimal-unstyled-tags) .cm-s-obsidian span.cm-hashtag.cm-tag-practice,
+body:not(.minimal-unstyled-tags) a.tag[href^="#A/other"] {
+  /* background-color: rgb(115, 114, 114); */
+  background: linear-gradient(to right, #797979, #434343);
+}
+
+body:not(.minimal-unstyled-tags) .cm-s-obsidian span.cm-hashtag.cm-tag-practice,
+body:not(.minimal-unstyled-tags) a.tag[href="#practice"] {
+  background-color: rgb(211, 143, 17);
+}
+body:not(.minimal-unstyled-tags) .cm-s-obsidian span.cm-hashtag.cm-tag-question,
+body:not(.minimal-unstyled-tags) a.tag[href^="#question"] {
+  background-color: #d85b70;
+}
+body:not(.minimal-unstyled-tags) .cm-s-obsidian span.cm-hashtag.cm-tag-ing,
+body:not(.minimal-unstyled-tags) a.tag[href^="#ing"] {
+  background-color: #d4613d;
+}
+body:not(.minimal-unstyled-tags) .cm-s-obsidian span.cm-hashtag.cm-tag-todo,
+body:not(.minimal-unstyled-tags) a.tag[href^="#todo"] {
+  background-color: #e9ec0c;
+  color: #e60b03 !important;
+}
+body:not(.minimal-unstyled-tags)
+  .cm-s-obsidian
+  span.cm-hashtag.cm-tag-DDSSDNlog,
+body:not(.minimal-unstyled-tags) a.tag[href*="/log"] {
+  background-color: #585858;
+}

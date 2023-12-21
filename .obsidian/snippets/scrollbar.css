@@ -1,0 +1,41 @@
+/* 滑动条背景 宽度，要隐藏滑动条就将宽度设置为0px，这会影响到所有的滑动条*/
+/* ::-webkit-scrollbar{width:5px;background-color:red} */
+/* 滑动块之外的背景 */
+/* ::-webkit-scrollbar-track{background-color:green} */
+/* 滑动块 外边距、描边、背景色*/
+::-webkit-scrollbar-thumb {
+  background-clip: padding-box;
+  border: 3px solid yellow;
+  background-color: #982222;
+  border-width: 3px 4px 3px 3px;
+  min-height: 45px;
+}
+
+/* 设置按钮的位置 */
+.workspace-ribbon.mod-right .workspace-ribbon-collapse-btn {
+  opacity: 1;
+  position: fixed;
+  width: 26px;
+  display: flex;
+  align-items: center;
+  top: auto;
+  text-align: center;
+  bottom: 32px;
+  z-index: 9;
+}
+.workspace-ribbon.mod-right {
+  right: 4px;
+  bottom: 0;
+  height: 32px;
+  padding-top: 6px;
+  position: absolute;
+  background: 0 0;
+  border: 0;
+}
+/* 按钮背景色 鼠标悬停背景色 */
+.mod-right .workspace-ribbon-collapse-btn {
+  background-color: blue;
+}
+.workspace-ribbon-collapse-btn:hover {
+  background-color: red;
+}

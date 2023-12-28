@@ -29,7 +29,7 @@ class Research {
     const CCF_level_index = 2;
 
     const CCF_index = p.file.etags
-      .map((t) => String(t).indexOf("CCF/") >= 0)
+      .map(t => String(t).indexOf("CCF/") >= 0)
       .indexOf(true);
     let CCF = "";
     if (CCF_index >= 0) {
@@ -71,15 +71,49 @@ class Research {
     return `<span ${style}>${size.toFixed(1)}</span>`;
   }
 
-  d2s(t) {
-    var dateformat = "MM.DD";
-    return window.moment(t.toString()).format(dateformat);
+  d2s(t, dateformat = undefined, offset = undefined) {
+    dateformat ||= "YYYY.MM.DD";
+    offset = offset === undefined ? 2 : offset;
+    return window
+      .moment(t.toString())
+      .format(dateformat.slice(offset, dateformat.length));
+  }
+  /* render M/C*/
+  render_MC(p, dateformat = undefined, offset = undefined) {
+    let style = "font-family:var(--font-monospace);";
+    return (
+      `<span style="${style}">M: ${this.d2s(
+        p.file.mtime,
+        dateformat,
+        offset
+      )}</span>` +
+      `\n` +
+      `<span style="color:var(--tag-color);${style}">C: ${this.d2s(
+        p.file.ctime,
+        dateformat,
+        offset
+      )}</span>`
+    );
+  }
+
+  author(dv) {
+    var books = dv.pages(`#书 and [[]]`).sort(p => p.file.mday, "desc");
+    dv.table(
+      [`书名`, "tags", "出版时间", "KB", "M/C"],
+      books.map(p => [
+        p.file.link,
+        p.file.tags.filter(t => !(t == "#书" || t.startsWith("#书/"))),
+        p.publishTime
+          ? window.moment(p.publishTime.toString()).format("YYYY-MM-DD")
+          : "",
+        this.file_size(p),
+        this.render_MC(p, "YYYY-MM-DD", 0),
+      ])
+    );
   }
 
   researcher(dv) {
-    var papers = dv
-      .pages(`"Reading-notes" and [[]]`)
-      .sort((p) => p.year, "desc");
+    var papers = dv.pages(`"Reading-notes" and [[]]`).sort(p => p.year, "desc");
 
     dv.el("p", "");
     this.render_table(dv, papers);
@@ -93,20 +127,21 @@ class Research {
   topic(dv, query = "") {
     var papers = dv
       .pages(`"Reading-notes" and [[${query}]] and -#graph-ignore`)
-      .sort((p) => p.file.mtime, "desc");
+      .sort(p => p.file.mtime, "desc");
     this.render_table(dv, papers);
   }
 
   render_table(dv, papers) {
     dv.table(
       [`Paper`, "年", "Related", "Area", "KB", "M/C"],
-      papers.map((p) => [
+      papers.map(p => [
         this.title(p),
         this.year(p.year),
         p.related,
         p.area,
         this.file_size(p),
-        this.d2s(p.file.mtime) + `\n` + this.d2s(p.file.ctime),
+        // this.d2s(p.file.mtime) + `\n` + this.d2s(p.file.ctime),
+        this.render_MC(p),
       ])
     );
   }

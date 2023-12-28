@@ -1,5 +1,6 @@
 class Daily {
   setup(dv, R) {
+    this.dv = dv;
     this.processTitle = function (p) {
       if (p.file.path.startsWith("Reading-notes")) {
         // return p.alias;
@@ -37,29 +38,42 @@ class Daily {
       }
       return arr;
     };
+    this.isToday = function () {
+      const TomorrowHour = 6;
+      return (
+        dv.current().file.name ==
+        window
+          .moment(dv.date("now").plus({ hour: -TomorrowHour }).toString())
+          .format("YYYY-MM-DD_ddd")
+      );
+    };
   }
 
   display(dv, R) {
     this.setup(dv, R);
     // this_.currentFilePath
+    if (this.isToday()) {
+      this.render_yesterdayNotes(dv, -1);
+    } else {
+      this.render_yesterdayNotes(dv);
+    }
+    this.render_todayNotesInLastYears(dv);
 
     this.render_prev_next_daily_div(dv);
 
-    this.render_yesterdayNotes(dv);
     this.render_todayDiaryInLastYears(dv);
-    this.render_todayNotesInLastYears(dv);
 
     this.render_todayCreateAndModify(dv);
   }
 
-  render_yesterdayNotes(dv) {
+  render_yesterdayNotes(dv, offset = 0) {
     // 昨日新建笔记
-    const durNum = 1;
-    const durType = "days";
-
+    let title = `🏗️ 当日新建`;
+    if (offset == -1) {
+      title = `🧲 昨日新建`;
+    }
     function timeSinceCreationInDays(p) {
-      let days = dv.current().file.day - p.file.cday;
-      return days >= 0 && days < durNum;
+      return dv.current().file.day.plus({ days: offset }).ts == p.file.cday.ts;
     }
 
     var lastNotes = dv
@@ -68,7 +82,7 @@ class Daily {
     if (lastNotes.length) {
       // && lastNotes.length < 50
       dv.table(
-        [`🧲 昨日新建`, "Inlinks"],
+        [title, "📩 Inlinks"],
         lastNotes.map(p => [
           this.processTitle(p),
           this.processLink(p.file.inlinks),
@@ -91,11 +105,14 @@ class Daily {
     }
 
     function titleInPast(p) {
+      let title = p.file.link;
       if (p.file.day.year > dv.current().file.day.year) {
-        return `~~[[${p.file.name}]]~~`;
-      } else {
-        return p.file.link;
+        title = `~~[[${p.file.name}]]~~`;
       }
+      if (p.title) {
+        title += `: ` + p.title;
+      }
+      return title;
     }
     var todayDiaryInLastYears = dv
       .pages(`"Diary/Daily" and #日记`)
@@ -106,8 +123,9 @@ class Daily {
           p.file.day.year != dv.current().file.day.year
       );
     if (todayDiaryInLastYears.length) {
+      console.log(todayDiaryInLastYears);
       dv.table(
-        [`💭 往年今日`, "OutLinks", "InLinks", "周课"],
+        [`💭 往年今日`, "🔗 OutLinks", "📩 InLinks", "🧘 周课"],
         todayDiaryInLastYears
           .sort(p => p.file.day)
           .map(p => [
@@ -141,15 +159,10 @@ class Daily {
   }
 
   render_todayCreateAndModify(dv) {
-    const TomorrowHour = 6;
     const current = dv.current().file;
-    if (
-      current.name ==
-      window
-        .moment(dv.date("now").plus({ hour: -TomorrowHour }).toString())
-        .format("YYYY-MM-DD_ddd")
-    ) {
+    if (this.isToday()) {
       function selectToday(day) {
+        // return dv.current().file.day.ts == day.ts;
         return (
           day.day === current.day.day &&
           day.month === current.day.month &&
@@ -159,8 +172,9 @@ class Daily {
 
       // 今日创建
       var todayCreateNotes = dv
-        .pages(`-"Diary/Daily"`)
+        .pages(``)
         .where(p => selectToday(p.file.cday))
+        .where(p => p.file.name != current.name) // 今日日记当然是今日创建的，不必展示。
         .sort(p => p.file.cday);
 
       //  今日修改
@@ -196,7 +210,7 @@ class Daily {
 
       if (todayCreateNotes.length) {
         dv.table(
-          [`🍀 今日新建 (` + todayCreateNotes.length + `)`, "Inlinks"],
+          [`🍀 今日新建`, "📩 Inlinks"],
           todayCreateNotes.map(p => [
             this.processTitle(p),
             this.processLink(p.file.inlinks),
@@ -212,7 +226,10 @@ class Daily {
           .array()
           .slice(0, MaxModifyNotes)
           .join(" | ");
-        dv.paragraph(`**今日修改 (${todayModifyNotes.length})：** ${content}`);
+        dv.el("p", `**今日编辑 (${todayModifyNotes.length})：** ${content}`, {
+          cls: "",
+          attr: { style: "line-height:1.5;" },
+        });
       }
     }
   }
@@ -254,7 +271,6 @@ class Daily {
     const last_month = dv.pages(folder + this.calDay(-30) + `.md"`).file;
     const last_season = dv.pages(folder + this.calDay(-90) + `.md"`).file;
     const last_half_year = dv.pages(folder + this.calDay(-180) + `.md"`).file;
-    const a_style = `style="align-self:"`;
     dv.el(
       "div",
       `<a class="internal-link" href="${

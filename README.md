@@ -3,6 +3,7 @@
 文章介绍：
 - 少数派：https://sspai.com/post/85339
 - 微信公众号：https://mp.weixin.qq.com/s/PwEO8uJMV1kIOcETG82EVQ
+- notion: https://benature.notion.site/Obsidian-4-fb430726a5cd4ebc8bb2e829e85f4923
 
 ## 配置
 
@@ -35,3 +36,4 @@ affiliation::
 
 ## 1 Intro
 ```
+

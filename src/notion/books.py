@@ -103,14 +103,15 @@ for page in response.json()['results']:
     dates = props['阅读时间']['date']
     title = props['书名']['title'][0]['plain_text']
     done = props['读/听完']['checkbox']
+    tags = [s['name'] for s in props['Tags']['multi_select']]
 
-    print(title, dates, done)
+    print(title, dates, done, tags)
 
     md_path = OB_ROOT_PATH / f"输入/书籍/《{title}》.md"
     if not md_path.exists():
         print("not exists")
         continue
-    # input()
+    input()
     handler = MarkdownMetadataHandler(md_path, prekeys=prekeys)
     meta = handler.extract_metadata()
     if dates is not None:
@@ -120,4 +121,13 @@ for page in response.json()['results']:
         else:
             meta['finishDate'] = dates['start']
     meta['done'] = done
+    if isinstance(meta['tags'], str):
+        meta['tags'] = [meta['tags']]
+    for t in tags:
+        if t in meta['tags']: continue
+        t_p = Path(t).parent
+        while str(t_p) != '.':
+            if str(t_p) in meta['tags']: meta['tags'].remove(str(t_p))
+            t_p = t_p.parent
+        meta['tags'].append(t)
     handler.update_metadata(meta)

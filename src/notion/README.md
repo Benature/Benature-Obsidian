@@ -8,7 +8,7 @@ Notion Database 同步置顶顺序到 Obsidian 笔记中。
 
 配置
 
-<https://developers.notion.com/reference/intro>
+notion API: <https://developers.notion.com/reference/intro>
 
 ```python
 # config.py

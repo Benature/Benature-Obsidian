@@ -1,6 +1,6 @@
 .breadcrumbs-wrapper {
   display: flex;
-  justify-content: space-between;
+  justify-content: space-around;
   margin-bottom: 15px;
   height: 35px;
 }
@@ -24,6 +24,15 @@
 
 .dv-prev-dates > span {
   display: flex;
-  justify-content: space-between;
+  justify-content: space-around;
   margin-bottom: 8px;
+}
+
+/* .block-language-dataviewjs.node-insert-event > p {
+  line-height: 1.5;
+} */
+
+.block-language-dataviewjs.node-insert-event .dataview.table-view-table {
+  margin-top: 10px;
+  margin-bottom: 10px;
 }

@@ -18,28 +18,54 @@ ignore-next-dv + div > h4 {
 }
 
 /* table */
-.table-view-table tr > td,
-.table-view-table tr > th {
-  border: 1px solid #3c3942 !important;
+.table-view-table tbody tr > td,
+.table-view-table thead tr > th,
+.table-view-table tbody tr:last-child > td {
+  border: 1px solid #3c3942;
 }
-.table-view-table tr > th {
-  border-bottom: 2px solid #504c5e !important;
-  border-top: 2px solid #504c5e !important;
+.table-view-table thead tr > th.table-view-th {
+  border-bottom: 2px solid #504c5e;
+  border-top: 2px solid #504c5e;
 }
-.table-view-table tr > td:first-child,
-.table-view-table tr > th:first-child {
-  border-left: 0px !important;
+.table-view-table tbody tr > td:first-child,
+.table-view-table thead tr > th:first-child {
+  border-left: 0px;
 }
-.table-view-table tr > td:last-child,
-.table-view-table tr > th:last-child {
-  border-right: 0px !important;
+.table-view-table tbody tr > td:last-child,
+.table-view-table thead tr > th:last-child {
+  border-right: 0px;
 }
 
 .trim-cols .markdown-source-view.mod-cm6 .table-view-table > tbody > tr > td {
   white-space: initial;
 }
 
-.markdown-preview-view table.dataview.table-view-table {
+.markdown-preview-view table.dataview.table-view-table,
+.markdown-source-view.mod-cm6.is-readable-line-width
+  .cm-contentContainer.cm-contentContainer
+  > .cm-content
+  table {
   margin-left: auto;
   margin-right: auto;
+}
+
+.cards .table-view-table tbody tr > td {
+  border: none;
+}
+
+.cards
+  table.dataview.table-view-table
+  tbody
+  > tr
+  > td:not(:has(.dv-class-td-ignore)) {
+  min-height: 50px;
+  display: flex;
+  align-items: center;
+  padding: 0;
+  /*justify-content: center;*/
+}
+
+.cards .table-view-table tbody tr > td span {
+  font-size: 12px;
+  padding: 0;
 }

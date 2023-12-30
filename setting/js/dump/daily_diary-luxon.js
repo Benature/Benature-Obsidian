@@ -1,6 +1,5 @@
 class Daily {
   setup(dv, R) {
-    this.dv = dv;
     this.processTitle = function (p) {
       if (p.file.path.startsWith("Reading-notes")) {
         // return p.alias;
@@ -25,65 +24,41 @@ class Daily {
         .moment(dv.current().file.day.plus({ days: d }).toString())
         .format(f);
     };
-
-    this.unique = function unique(arr) {
-      arr = arr.array();
-      for (var i = 0; i < arr.length; i++) {
-        for (var j = i + 1; j < arr.length; j++) {
-          if (arr[i].display == arr[j].display) {
-            arr.splice(j, 1);
-            j--;
-          }
-        }
-      }
-      return arr;
-    };
-    this.isToday = function () {
-      const TomorrowHour = 6;
-      return (
-        dv.current().file.name ==
-        window
-          .moment(dv.date("now").plus({ hour: -TomorrowHour }).toString())
-          .format("YYYY-MM-DD_ddd")
-      );
-    };
   }
 
-  display(dv, R) {
+  display(dv, luxon, R) {
     this.setup(dv, R);
     // this_.currentFilePath
-    if (this.isToday()) {
-      this.render_yesterdayNotes(dv, -1);
-    } else {
-      this.render_yesterdayNotes(dv);
-    }
-    this.render_todayNotesInLastYears(dv);
 
     this.render_prev_next_daily_div(dv);
 
+    this.render_yesterdayNotes(dv, luxon);
     this.render_todayDiaryInLastYears(dv);
+    this.render_todayNotesInLastYears(dv);
 
-    this.render_todayCreateAndModify(dv);
+    this.render_todayCreateAndModify(dv, luxon);
   }
 
-  render_yesterdayNotes(dv, offset = 0) {
+  render_yesterdayNotes(dv, luxon) {
     // 昨日新建笔记
-    let title = `🏗️ 当日新建`;
-    if (offset == -1) {
-      title = `🧲 昨日新建`;
-    }
+    const durNum = 1;
+    const durType = "days";
+
     function timeSinceCreationInDays(p) {
-      return dv.current().file.day.plus({ days: offset }).ts == p.file.cday.ts;
+      return luxon.Interval.fromDateTimes(
+        p.file.ctime,
+        dv.current().file.day
+      ).length(durType);
     }
 
     var lastNotes = dv
       .pages(`-"Diary/Daily"`)
-      .filter(p => timeSinceCreationInDays(p));
+      .filter((p) => timeSinceCreationInDays(p) <= durNum);
     if (lastNotes.length) {
       // && lastNotes.length < 50
       dv.table(
-        [title, "📩 Inlinks"],
-        lastNotes.map(p => [
+        [`🧲 昨日新建`, "Inlinks"],
+        lastNotes.map((p) => [
           this.processTitle(p),
           this.processLink(p.file.inlinks),
         ])
@@ -105,32 +80,28 @@ class Daily {
     }
 
     function titleInPast(p) {
-      let title = p.file.link;
       if (p.file.day.year > dv.current().file.day.year) {
-        title = `~~[[${p.file.name}]]~~`;
+        return `~~[[${p.file.name}]]~~`;
+      } else {
+        return p.file.link;
       }
-      if (p.title) {
-        title += `: ` + p.title;
-      }
-      return title;
     }
     var todayDiaryInLastYears = dv
       .pages(`"Diary/Daily" and #日记`)
       .where(
-        p =>
+        (p) =>
           p.file.day.day === dv.current().file.day.day &&
           p.file.day.month === dv.current().file.day.month &&
           p.file.day.year != dv.current().file.day.year
       );
     if (todayDiaryInLastYears.length) {
       dv.table(
-        [`💭 往年今日`, "🔗 OutLinks", "📩 InLinks", "🧘 周课"],
+        [`💭 往年今日`, "OutLinks", "InLinks", "周课"],
         todayDiaryInLastYears
-          .sort(p => p.file.day)
-          .map(p => [
+          .sort((p) => p.file.cday)
+          .map((p) => [
             titleInPast(p),
-            this.unique(p.file.outlinks.where(l => l.path.endsWith(".md"))),
-            // p.file.outlinks.where((l) => l.path.endsWith(".md")),
+            p.file.outlinks.where((l) => l.path.endsWith(".md")),
             p.file.inlinks,
             findWeek(p),
           ])
@@ -143,7 +114,7 @@ class Daily {
     var todayNotesInLastYears = dv
       .pages(`-"Diary/Daily"`)
       .where(
-        p =>
+        (p) =>
           p.file.cday.day === dv.current().day &&
           p.file.cday.month === dv.current().month
       );
@@ -151,17 +122,23 @@ class Daily {
       dv.table(
         [`📜 去年笔记`, "OutLinks"],
         todayNotesInLastYears
-          .sort(p => p.file.cday)
-          .map(p => [p.file.link, p.file.outlinks])
+          .sort((p) => p.file.cday)
+          .map((p) => [p.file.link, p.file.outlinks])
       );
     }
   }
 
-  render_todayCreateAndModify(dv) {
+  render_todayCreateAndModify(dv, luxon) {
+    const TomorrowHour = 6;
     const current = dv.current().file;
-    if (this.isToday()) {
+    if (
+      current.name ==
+      window
+        // .moment(luxon.DateTime.local().plus({ hour: -TomorrowHour }).toString())
+        .moment(dv.date("now").plus({ hour: -TomorrowHour }).toString())
+        .format("YYYY-MM-DD_ddd")
+    ) {
       function selectToday(day) {
-        // return dv.current().file.day.ts == day.ts;
         return (
           day.day === current.day.day &&
           day.month === current.day.month &&
@@ -171,10 +148,9 @@ class Daily {
 
       // 今日创建
       var todayCreateNotes = dv
-        .pages(``)
-        .where(p => selectToday(p.file.cday))
-        .where(p => p.file.name != current.name) // 今日日记当然是今日创建的，不必展示。
-        .sort(p => p.file.cday);
+        .pages(`-"Diary/Daily"`)
+        .where((p) => selectToday(p.file.cday))
+        .sort((p) => p.file.cday);
 
       //  今日修改
       var calDay = this.calDay;
@@ -196,9 +172,9 @@ class Daily {
       }
       var todayModifyNotes = dv
         .pages(``)
-        .where(p => selectToday(p.file.mday))
-        .where(p => filter(p))
-        .sort(p => p.file.mtime, "desc");
+        .where((p) => selectToday(p.file.mday))
+        .where((p) => filter(p))
+        .sort((p) => p.file.mtime, "desc");
 
       if (todayCreateNotes.length || todayModifyNotes.length) {
         dv.paragraph("");
@@ -209,26 +185,20 @@ class Daily {
 
       if (todayCreateNotes.length) {
         dv.table(
-          [`🍀 今日新建`, "📩 Inlinks"],
-          todayCreateNotes.map(p => [
+          [`🍀 今日新建 (` + todayCreateNotes.length + `)`, "Inlinks"],
+          todayCreateNotes.map((p) => [
             this.processTitle(p),
             this.processLink(p.file.inlinks),
           ])
         );
       }
 
-      const MaxModifyNotes = 50;
-
       if (todayModifyNotes.length) {
         let content = todayModifyNotes
-          .map(p => setName(p))
+          .map((p) => setName(p))
           .array()
-          .slice(0, MaxModifyNotes)
           .join(" | ");
-        dv.el("p", `**今日编辑 (${todayModifyNotes.length})：** ${content}`, {
-          cls: "",
-          attr: { style: "line-height:1.5;" },
-        });
+        dv.paragraph(`**今日修改 (${todayModifyNotes.length})：** ${content}`);
       }
     }
   }
@@ -243,16 +213,16 @@ class Daily {
       {
         selector: "a.prev-daily",
         path: prevDay?.path[0],
-        text: `◀&nbsp; ${this.calDay(-1, "MM-DD ddd")}  &nbsp; <b>${
+        text: `< ${this.calDay(-1, "MM-DD ddd")} ${
           weekDaySign[dv.current().file.day.plus({ days: -1 }).weekday]
-        }</b>`,
+        }`,
       },
       {
         selector: "a.next-daily",
         path: nextDay?.path[0],
-        text: `<b>${
+        text: `${
           weekDaySign[dv.current().file.day.plus({ days: 1 }).weekday]
-        }</b> &nbsp; ${this.calDay(1, "MM-DD ddd")} &nbsp;▶`,
+        } ${this.calDay(1, "MM-DD ddd")} >`,
       },
     ];
 
@@ -283,11 +253,7 @@ class Daily {
         }">上季（${this.calDay(-90, "MM-DD")}）</a>` +
         `<a class="internal-link" href="${
           last_half_year?.path[0]
-        }">上半年（${this.calDay(-180, "MM-DD")}）</a>`,
-      {
-        cls: "dv-prev-dates",
-        attr: { style: "" },
-      }
+        }">上半年（${this.calDay(-180, "MM-DD")}）</a>`
     );
   }
 }

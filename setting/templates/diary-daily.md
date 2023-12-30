@@ -1,7 +1,8 @@
 ---
-tags: 日记/日
+tags:
+  - 日记/日
+hide: true
 ---
-
 title:: 
 ### 行云
 - 早上

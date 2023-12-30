@@ -4,18 +4,18 @@
 .data-link-text[data-link-tags^="课程"],
 .data-link-text[data-link-tags^="影视"],
 .data-link-text[data-link-tags*="DDS/M"],
-[data-link-tags="researcher"] {
+[data-link-tags="P/researcher"] {
   background-color: rgba(54, 54, 194, 0.534);
   border-radius: 3px;
   padding: 0px 2px;
 }
-.data-link-text[data-link-tags*="#日记"]:not(.elegant-btn) {
+.data-link-text[data-link-tags*="日记"]:not(.elegant-btn) {
   background-color: rgba(12, 195, 219, 0.226);
   color: rgb(176, 175, 204) !important;
   border-radius: 3px;
   padding: 0px 4px;
 }
-.data-link-text[data-link-tags*="#日记/周"] {
+.data-link-text[data-link-tags*="日记/周"] {
   background-color: rgba(12, 195, 219, 0.4) !important;
   color: rgb(238, 193, 180) !important;
 }
@@ -34,7 +34,7 @@
 }
 
 /* tags */
-.data-link-text[data-link-tags="researcher" i]::before {
+.data-link-text[data-link-tags="P/researcher" i]::before {
   content: "👨‍🎓 ";
 }
 

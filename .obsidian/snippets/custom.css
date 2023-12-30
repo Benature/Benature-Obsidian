@@ -34,6 +34,14 @@ img {
   background-color: white;
 }
 
+.markdown-source-view.mod-cm6.is-readable-line-width
+  .cm-contentContainer.cm-contentContainer
+  > .cm-content
+  > img {
+  margin-left: auto !important;
+  margin-right: auto !important;
+}
+
 .view-header-title-container {
   opacity: 0.4;
 }

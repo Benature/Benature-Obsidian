@@ -1,39 +1,62 @@
-.obsidian-metatable::part(tag) {
-  background-color: rgba(65, 105, 225, 0.75);
-  color: rgba(255, 255, 255, 0.75);
-  font-weight: 900;
+.metadata-property[data-property-key^="douban"] .metadata-property-key::after {
+  content: "";
+  background-image: url("https://img1.doubanio.com/favicon.ico");
+  background-size: 20px 20px; /* 设置图标大小 */
+  width: 20px; /* 设置伪元素宽度 */
+  height: 20px; /* 设置伪元素高度 */
+  position: absolute; /* 绝对定位 */
+  left: 3px; /* 与父元素左对齐 */
+  top: 50%; /* 垂直居中 */
+  transform: translateY(-50%); /* 垂直居中 */
+  z-index: -100;
+  opacity: 0.5;
+}
+.metadata-property[data-property-key^="douban"] svg {
+  visibility: hidden;
 }
 
-.obsidian-metatable::part(internal-link) {
-  color: #b2a2f7;
-  background-position: center right;
-  background-repeat: no-repeat;
-  background-image: linear-gradient(transparent, transparent),
-    url(public/images/874d8b8e340f75575caa.svg);
-  padding-right: 16px;
-  background-position-y: 2px;
+.metadata-property[data-property-key^="weread"] .metadata-property-key::after {
+  content: "";
+  background-image: url("https://rescdn.qqmail.com/node/wr/wrpage/style/images/independent/favicon/favicon_32h.png");
+  background-size: 20px 20px; /* 设置图标大小 */
+  width: 20px; /* 设置伪元素宽度 */
+  height: 20px; /* 设置伪元素高度 */
+  position: absolute; /* 绝对定位 */
+  left: 3px; /* 与父元素左对齐 */
+  top: 50%; /* 垂直居中 */
+  transform: translateY(-50%); /* 垂直居中 */
+  z-index: -100;
+  opacity: 0.5;
 }
 
-.obsidian-metatable {
-  background-color: rgba(87, 72, 72, 0.3);
-  border-radius: 5px;
-  --metatable-key-background: transparent;
-  box-shadow: 4px 4px 10px rgba(0, 0, 0, 0.8);
-  padding-left: 5px;
+.metadata-property[data-property-key^="weread"] svg {
+  visibility: hidden;
 }
 
-.obsidian-metatable::part(value) {
-  overflow: hidden;
+.workspace-tabs:has([data-link-data-href^="@"])
+  .metadata-property[data-property-key="title"]
+  .metadata-property-key::after,
+.workspace-tabs:has([data-link-data-href^="@"])
+  .metadata-property[data-property-key="url"]
+  .metadata-property-key::after {
+  content: "";
+  background-image: url("https://scholar.google.com/favicon.ico");
+  background-size: 20px;
+  width: 36px;
+  height: 20px;
+  position: relative;
+  left: -83%;
+  top: 4px;
+  /* transform: translateY(-50%); */
+  z-index: -100;
+  opacity: 0.5;
 }
 
-.markdown-preview-view table {
-  margin-block-start: 0em;
-}
-.markdown-rendered table {
-  margin-bottom: 0px;
-}
-
-.obsidian-metatable summary {
-  font-size: 12px;
-  color: gray;
+.workspace-tabs:has([data-link-data-href^="@"])
+  .metadata-property[data-property-key="title"]
+  svg,
+.workspace-tabs:has([data-link-data-href^="@"])
+  .metadata-property[data-property-key="url"]
+  svg {
+  visibility: hidden;
 }

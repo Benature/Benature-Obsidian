@@ -4,7 +4,7 @@ subTitle: {{subTitle}}
 originalTitle: {{originalTitle}}
 series: {{series}}
 authorList: {{author(ArrayType2)}}
-score: {{score}}
+doubanScore: {{score}}
 publishTime: {{datePublished}}
 translatorList: {{translator(ArrayType2)}}
 publisher: "[[{{publisher}}]]"

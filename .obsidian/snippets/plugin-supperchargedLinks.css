@@ -56,8 +56,45 @@
 .data-link-text[data-link-tags^="影视" i]::before {
   content: "📺 ";
 }
+:root {
+  --supercharge-icon-bg-size-diary: 14px;
+  --supercharge-icon-size-diary: 14px;
+}
 .data-link-text[data-link-tags^="日记" i]:not(.elegant-btn)::before {
-  content: "📅 ";
+  /* content: "📅 "; */
+  display: inline-block;
+  content: "";
+  background-size: var(--supercharge-icon-bg-size-diary);
+  width: var(--supercharge-icon-bg-size-diary);
+  height: var(--supercharge-icon-bg-size-diary);
+  /* z-index: 100; */
+  opacity: 1;
+  top: 1px;
+  position: relative;
+}
+.data-link-text[data-link-tags^="日记" i]::before {
+  background-image: url("https://img.icons8.com/plasticine/100/timeline-week.png");
+}
+.data-link-text[data-link-tags^="日记" i][data-link-path$="_Mon.md"]::before {
+  background-image: url("https://img.icons8.com/color/32/monday.png");
+}
+.data-link-text[data-link-tags^="日记" i][data-link-path$="_Tue.md"]::before {
+  background-image: url("https://img.icons8.com/color/32/tuesday.png");
+}
+.data-link-text[data-link-tags^="日记" i][data-link-path$="_Wed.md"]::before {
+  background-image: url("https://img.icons8.com/color/32/wednesday.png");
+}
+.data-link-text[data-link-tags^="日记" i][data-link-path$="_Thu.md"]::before {
+  background-image: url("https://img.icons8.com/color/32/thursday.png");
+}
+.data-link-text[data-link-tags^="日记" i][data-link-path$="_Fri.md"]::before {
+  background-image: url("https://img.icons8.com/color/32/friday.png");
+}
+.data-link-text[data-link-tags^="日记" i][data-link-path$="_Sat.md"]::before {
+  background-image: url("https://img.icons8.com/color/32/saturday.png");
+}
+.data-link-text[data-link-tags^="日记" i][data-link-path$="_Sun.md"]::before {
+  background-image: url("https://img.icons8.com/color/32/sunday.png");
 }
 
 .data-link-text[data-link-tags^="podcaster" i]::before {

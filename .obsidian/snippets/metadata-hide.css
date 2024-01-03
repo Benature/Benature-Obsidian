@@ -1,5 +1,10 @@
-/* Hide the metadata that is empty */
+/* * Hide the metadata that is empty */
 .metadata-property:has(.metadata-property-value .mod-truncate:empty),
+.metadata-property:has(
+    .metadata-property-value
+      input.metadata-input[type="number"]:placeholder-shown
+  ),
+.metadata-property[data-property-type="text"]:has(input[type="date"]),
 .metadata-property:has(
     .metadata-property-value
       .multi-select-container
@@ -8,40 +13,37 @@
   display: none;
 }
 
-/* Make sure to enable Button: add document attribution */
+/* * visualize the last metadata property.
+   * Make sure to enable Button: add document attribution */
 div.view-content
   div.metadata-content
   > div.metadata-properties
   > div.metadata-property:last-child {
-  background-color: var(--bg2);
+  /* background-color: var(--bg2); */
   display: flex;
 }
 
-div.metadata-property[data-property-key="weread"],
-div.metadata-property[data-property-key="finishDate"],
-div.metadata-property[data-property-key="douban"] {
-  display: flex !important;
-}
-
-.metadata-property:has(
-    .metadata-property-key .metadata-property-key-input[aria-label="coverURL"]
-  ) {
-  display: none;
-}
-.metadata-property:has(
-    .metadata-property-key .metadata-property-key-input[aria-label="ISBN"]
-  ) {
-  display: none;
-}
-.metadata-property:has(
-    .metadata-property-key
-      .metadata-property-key-input[aria-label="kindle-sync"]
-  ) {
-  display: none;
-}
-
+/* * Hide the hold metadata table if `hide` is `true` */
 .metadata-container:has(
     .metadata-property[data-property-key="hide"] input[type="checkbox"]:checked
   ) {
   display: none;
+}
+
+/* * Custom: Force visible */
+.metadata-property[data-property-key="variant"],
+.metadata-property[data-property-key="aliases"],
+.metadata-property[data-property-key="tags"],
+.metadata-property[data-property-key="weread"],
+.metadata-property[data-property-key="finishDate"],
+.metadata-property[data-property-key="douban"] {
+  display: flex !important;
+}
+
+/* * Custom: Force invisible */
+.metadata-property[data-property-key="coverURL"],
+.metadata-property[data-property-key="doubanDataTime"],
+.metadata-property[data-property-key="kindle-sync"],
+.metadata-property[data-property-key="ISBN"] {
+  display: none !important;
 }

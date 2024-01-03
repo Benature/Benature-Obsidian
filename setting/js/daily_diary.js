@@ -3,8 +3,6 @@ class Daily {
     this.dv = dv;
     this.processTitle = function (p) {
       if (p.file.path.startsWith("Reading-notes")) {
-        // return p.alias;
-        // return p.file.link;
         return R.title(p) + ` (${p.year})`;
       } else {
         return p.file.link;

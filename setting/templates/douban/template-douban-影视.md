@@ -12,9 +12,9 @@ language: {{language}}
 IMDb: {{IMDb}}
 duration: {{time}}
 doubanDataTime: {{currentDate}} {{currentTime}}
-author:: {{author(ArrayType2)}}
-director:: {{director(ArrayType2)}}
-actor: {{actor(ArrayType2)}}
+authorList:: {{author(ArrayType2)}}
+directorList:: {{director(ArrayType2)}}
+actorList: {{actor(ArrayType2)}}
 ---
 
 > [!col]

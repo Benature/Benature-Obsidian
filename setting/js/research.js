@@ -1,28 +1,32 @@
 class Research {
   title(p) {
-    // return p;
-    let title = "";
-    if (p.alias) {
-      var alias;
+    let title = `[[${p.file.name}|${p.title}]]`;
+    if (p.aliases) {
+      for (let alias of p.aliases) {
+        if (p.title.indexOf(alias) >= 0) {
+          let t = `[[` + p.file.name + `|` + alias + `]]`;
+          title = p.title.replace(alias, t);
+          break;
+        }
+      }
+    } else if (p.alias) {
+      let alias;
       if (p.alias.constructor == String && p.alias.startsWith("@")) {
         alias = p.file.name;
       } else {
         alias = p.alias;
       }
-      // var alias = p.alias.startsWith("@") ? p.file.name : p.alias;
-      // var alias = p.alias;
-      // var alias = p.file.name;
       if (p.title.indexOf(alias) >= 0) {
-        let t = `[[` + p.file.name + `|` + alias + `]]`;
-        title = p.title.replace(alias, t);
+        title = p.title.replace(alias, `[[${p.file.name}|${alias}]]`);
       } else {
-        title = `[[` + p.file.name + `|` + alias + `]] *|* ` + p.title;
+        title = `[[${p.file.name}|${alias}]] *|* ${p.title}`;
       }
-    } else {
-      title = `[[` + p.file.name + `|` + p.title + `]]`;
     }
     let CCF = this.CCF(p);
-    return `${CCF} ${title}`;
+    if (CCF.length > 0) {
+      CCF = CCF + " ";
+    }
+    return CCF + title;
   }
   CCF(p) {
     const color = { A: "#e05252", B: "orange", C: "green" };
@@ -39,7 +43,7 @@ class Research {
     return CCF;
   }
   year(y) {
-    let maxY = 2022;
+    let maxY = 2024;
     let minY = 2015;
     let min_alpha = 0.4;
     let style = "";
@@ -82,17 +86,17 @@ class Research {
   render_MC(p, dateformat = undefined, offset = undefined) {
     let style = "font-family:var(--font-monospace);";
     return (
-      `<span style="${style}">M: ${this.d2s(
+      `<div><span style="${style}">M: ${this.d2s(
         p.file.mtime,
         dateformat,
         offset
-      )}</span>` +
-      `\n` +
-      `<span style="color:var(--tag-color);${style}">C: ${this.d2s(
+      )}</span></div>` +
+      `` +
+      `<div><span style="color:var(--tag-color);${style}">C: ${this.d2s(
         p.file.ctime,
         dateformat,
         offset
-      )}</span>`
+      )}</span></div>`
     );
   }
 

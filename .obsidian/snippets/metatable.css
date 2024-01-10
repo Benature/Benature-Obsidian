@@ -33,10 +33,10 @@
   visibility: hidden;
 }
 
-.workspace-tabs:has([data-link-data-href^="@"])
+.workspace-leaf-content:has([data-link-data-href^="@"])
   .metadata-property[data-property-key="title"]
   .metadata-property-key::after,
-.workspace-tabs:has([data-link-data-href^="@"])
+.workspace-leaf-content:has([data-link-data-href^="@"])
   .metadata-property[data-property-key="url"]
   .metadata-property-key::after {
   content: "";
@@ -52,10 +52,10 @@
   opacity: 0.5;
 }
 
-.workspace-tabs:has([data-link-data-href^="@"])
+.workspace-leaf-content:has([data-link-data-href^="@"])
   .metadata-property[data-property-key="title"]
   svg,
-.workspace-tabs:has([data-link-data-href^="@"])
+.workspace-leaf-content:has([data-link-data-href^="@"])
   .metadata-property[data-property-key="url"]
   svg {
   visibility: hidden;

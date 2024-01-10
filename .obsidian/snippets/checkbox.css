@@ -25,7 +25,7 @@ input[type="checkbox"]:hover {
   background-color: var(--background-primary-alt);
 }
 
-input[type="checkbox"]:checked::before {
+/* input[type="checkbox"]:checked::before {
   position: absolute;
   color: white;
   text-align: center;
@@ -34,7 +34,7 @@ input[type="checkbox"]:checked::before {
   width: 12px;
   left: 2px;
   right: 2px;
-}
+} */
 
 .markdown-preview-view ul > li.task-list-item {
   font-weight: normal;
@@ -42,8 +42,7 @@ input[type="checkbox"]:checked::before {
 }
 
 /* SVG check mark for done ('- [x]') */
-li[data-task="x"] input[type="checkbox"]::before,
-input[type="checkbox"][data-task="x"]::before {
+li[data-task="x"] input[type="checkbox"]::before {
   content: " ";
   top: 2px;
   bottom: 2px;

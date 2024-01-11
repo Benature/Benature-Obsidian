@@ -12,7 +12,7 @@ root_path = Path(__file__).resolve().parent.parent
 
 relative_paths = [
     ".obsidian/snippets", "setting/js", "setting/templates",
-    "setting/podcast.py"
+    "setting/src/podcast.py"
 ]
 for rp in relative_paths:
     origin_p = ob_path / rp

@@ -33,10 +33,10 @@
   visibility: hidden;
 }
 
-.workspace-leaf-content:has([data-link-data-href^="@"])
+.workspace-tabs:has(.workspace-tab-header.is-active[aria-label^="@"])
   .metadata-property[data-property-key="title"]
   .metadata-property-key::after,
-.workspace-leaf-content:has([data-link-data-href^="@"])
+.workspace-tabs:has(.workspace-tab-header.is-active[aria-label^="@"])
   .metadata-property[data-property-key="url"]
   .metadata-property-key::after {
   content: "";
@@ -52,10 +52,10 @@
   opacity: 0.5;
 }
 
-.workspace-leaf-content:has([data-link-data-href^="@"])
+.workspace-tabs:has(.workspace-tab-header.is-active[aria-label^="@"])
   .metadata-property[data-property-key="title"]
   svg,
-.workspace-leaf-content:has([data-link-data-href^="@"])
+.workspace-tabs:has(.workspace-tab-header.is-active[aria-label^="@"])
   .metadata-property[data-property-key="url"]
   svg {
   visibility: hidden;

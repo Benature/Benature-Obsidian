@@ -1,14 +1,5 @@
-/* Notation checkboxes */
 input[type="checkbox"] {
-  -webkit-appearance: none;
-  box-sizing: border-box;
-  border: 1px solid var(--text-normal);
-  position: relative;
-  width: 16px;
-  height: 16px;
-  margin: 0;
-  margin-right: 4px;
-  margin-bottom: 2px;
+  /* border: 1px solid var(--text-normal); */
   transition: background-color 200ms ease-out 0s;
   cursor: pointer;
   filter: none;
@@ -16,7 +7,6 @@ input[type="checkbox"] {
 }
 
 input[type="checkbox"]:checked {
-  border: none;
   background-color: var(--interactive-accent);
   background-image: none;
 }

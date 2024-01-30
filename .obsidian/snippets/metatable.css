@@ -1,38 +1,3 @@
-.metadata-property[data-property-key^="douban"] .metadata-property-key::after {
-  content: "";
-  background-image: url("https://img1.doubanio.com/favicon.ico");
-  background-size: 20px 20px; /* 设置图标大小 */
-  width: 20px; /* 设置伪元素宽度 */
-  height: 20px; /* 设置伪元素高度 */
-  position: absolute; /* 绝对定位 */
-  left: 3px; /* 与父元素左对齐 */
-  top: 50%; /* 垂直居中 */
-  transform: translateY(-50%); /* 垂直居中 */
-  z-index: -100;
-  opacity: 0.5;
-}
-.metadata-property[data-property-key^="douban"] svg {
-  visibility: hidden;
-}
-
-.metadata-property[data-property-key^="weread"] .metadata-property-key::after {
-  content: "";
-  background-image: url("https://rescdn.qqmail.com/node/wr/wrpage/style/images/independent/favicon/favicon_32h.png");
-  background-size: 20px 20px; /* 设置图标大小 */
-  width: 20px; /* 设置伪元素宽度 */
-  height: 20px; /* 设置伪元素高度 */
-  position: absolute; /* 绝对定位 */
-  left: 3px; /* 与父元素左对齐 */
-  top: 50%; /* 垂直居中 */
-  transform: translateY(-50%); /* 垂直居中 */
-  z-index: -100;
-  opacity: 0.5;
-}
-
-.metadata-property[data-property-key^="weread"] svg {
-  visibility: hidden;
-}
-
 .workspace-tabs:has(.workspace-tab-header.is-active[aria-label^="@"])
   .metadata-property[data-property-key="title"]
   .metadata-property-key::after,
@@ -40,16 +5,16 @@
   .metadata-property[data-property-key="url"]
   .metadata-property-key::after {
   content: "";
-  background-image: url("https://scholar.google.com/favicon.ico");
+  background-image: url("https://s2.loli.net/2024/01/25/bgeSniU8vqKfXa5.png");
   background-size: 20px;
   width: 36px;
   height: 20px;
   position: relative;
-  left: -83%;
+  left: -84%;
   top: 4px;
-  /* transform: translateY(-50%); */
   z-index: -100;
   opacity: 0.5;
+  background-repeat: no-repeat;
 }
 
 .workspace-tabs:has(.workspace-tab-header.is-active[aria-label^="@"])

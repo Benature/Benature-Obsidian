@@ -1,8 +1,11 @@
 class Daily {
+  ReadingFolder = "Reading-notes";
+  DiaryDailyFolder = "Diary/Daily";
+  WeeklyFolder = `Diary/Weekly`;
   setup(dv, R) {
     this.dv = dv;
     this.processTitle = function (p) {
-      if (p.file.path.startsWith("Reading-notes")) {
+      if (p.file.path.startsWith(this.ReadingFolder)) {
         return R.title(p) + ` (${p.year})`;
       } else {
         return p.file.link;
@@ -75,7 +78,7 @@ class Daily {
     }
 
     var lastNotes = dv
-      .pages(`-"Diary/Daily"`)
+      .pages(`-"${this.DiaryDailyFolder}"`)
       .filter(p => timeSinceCreationInDays(p));
     if (lastNotes.length) {
       // && lastNotes.length < 50
@@ -91,10 +94,10 @@ class Daily {
 
   render_todayDiaryInLastYears(dv) {
     // 去年今日日记
+    const WeeklyFolder = this.WeeklyFolder;
     function findWeek(p) {
       let f = p.file;
-      // return f;
-      let weekFilePath = `"Diary/Weekly/${f.day.year}-${
+      let weekFilePath = `"${WeeklyFolder}/${f.day.year}-${
         f.day.weekNumber + 1
       }W"`;
       // return weekFilePath;
@@ -112,8 +115,9 @@ class Daily {
       }
       return title;
     }
+    const DiaryDailyFolder = this.DiaryDailyFolder;
     var todayDiaryInLastYears = dv
-      .pages(`"Diary/Daily" and #日记`)
+      .pages(`"${DiaryDailyFolder}" and #日记`)
       .where(
         p =>
           p.file.day.day === dv.current().file.day.day &&
@@ -139,7 +143,7 @@ class Daily {
   render_todayNotesInLastYears(dv) {
     // 去年今日笔记
     var todayNotesInLastYears = dv
-      .pages(`-"Diary/Daily"`)
+      .pages(`-"${this.DiaryDailyFolder}"`)
       .where(
         p =>
           p.file.cday.day === dv.current().day &&
@@ -183,8 +187,9 @@ class Daily {
           selectToday(p.file.cday)
         );
       }
+      const ReadingFolder = this.ReadingFolder;
       function setName(p) {
-        if (p.file.path.startsWith("Reading-notes")) {
+        if (p.file.path.startsWith(ReadingFolder)) {
           if (p.alias) {
             return `[[${p.file.name}|${p.alias}]]`;
           }
@@ -233,7 +238,7 @@ class Daily {
 
   render_prev_next_daily_div(dv) {
     const weekDaySign = " ☽♂☿♃♀♄☼";
-    const folder = `"Diary/Daily/`;
+    const folder = `"${this.DiaryDailyFolder}/`;
     const prevDay = dv.pages(folder + this.calDay(-1) + `.md"`).file;
     const nextDay = dv.pages(folder + this.calDay(+1) + `.md"`).file;
 

@@ -1,4 +1,6 @@
 class Research {
+  FOLDER = "Reading-notes";
+
   title(p) {
     let title = `[[${p.file.name}|${p.title}]]`;
     if (p.aliases) {
@@ -117,7 +119,9 @@ class Research {
   }
 
   researcher(dv) {
-    var papers = dv.pages(`"Reading-notes" and [[]]`).sort(p => p.year, "desc");
+    var papers = dv
+      .pages(`"${this.FOLDER}" and [[]]`)
+      .sort(p => p.year, "desc");
 
     dv.el("p", "");
     this.render_table(dv, papers);
@@ -126,23 +130,35 @@ class Research {
     //   `div`,
     //   `<div style="display: block; position: relative; width: 100%; height: 0px; --aspect-ratio:${ratio}; padding-bottom: calc(var(--aspect-ratio) * 100%);"><iframe src="https://www.youtube.com/embed/${id}" allow="fullscreen" style="position: absolute; top: 0px; left: 0px; height: 100%; width: 100%;"></iframe></div>`
     // );
+    let url = dv.current().scholar;
+    if (url) {
+      dv.el("p", "");
+      dv.el("iframe", "scholar", {
+        attr: {
+          width: "100%",
+          height: "700",
+          src: url,
+          frameborders: "0",
+        },
+      });
+    }
   }
 
   topic(dv, query = "") {
     var papers = dv
-      .pages(`"Reading-notes" and [[${query}]] and -#graph-ignore`)
+      .pages(`"${this.FOLDER}" and [[${query}]] and -#graph-ignore`)
       .sort(p => p.file.mtime, "desc");
     this.render_table(dv, papers);
   }
 
   render_table(dv, papers) {
     dv.table(
-      [`Paper`, "年", "Related", "Area", "KB", "M/C"],
+      [`Paper`, "年", "Related", "KB", "M/C"],
       papers.map(p => [
         this.title(p),
         this.year(p.year),
         p.related,
-        p.area,
+        // p.area,
         this.file_size(p),
         // this.d2s(p.file.mtime) + `\n` + this.d2s(p.file.ctime),
         this.render_MC(p),

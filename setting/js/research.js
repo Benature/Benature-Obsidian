@@ -50,9 +50,8 @@ class Research {
     let min_alpha = 0.4;
     let style = "";
     if (y <= minY) {
-      style = `style="color: rgba(255,255,255,${
-        min_alpha - 0.1
-      }); font-style: italic;"`;
+      style = `style="color: rgba(255,255,255,${min_alpha - 0.1
+        }); font-style: italic;"`;
     } else {
       let alpha =
         (1 - (maxY - y) / (maxY - minY)) * (1 - min_alpha) + min_alpha;
@@ -103,6 +102,15 @@ class Research {
   }
 
   author(dv) {
+    if (dv.current().aliveYear) {
+      const aliveYears = dv.current().aliveYear.trim().match(/\d{4}/g)
+      if (aliveYears.length === 1) {
+        const birthYear = aliveYears[0];
+        const thisYear = dv.date("now").c.year;
+        dv.el("center", `${birthYear} 生人，今年 ${thisYear - birthYear} 岁。`);
+      }
+    }
+
     var books = dv.pages(`#书 and [[]]`).sort(p => p.file.mday, "desc");
     dv.table(
       [`书名`, "tags", "出版时间", "KB", "M/C"],

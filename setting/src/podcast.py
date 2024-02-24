@@ -108,6 +108,11 @@ publishTime: {publish_time}
 seriesNum: {series_num}
 ---
 
+
+````dataviewjs
+const {{Podcast}} = customJS
+Podcast.episode_display(dv)
+````
 '''
 
     def export(self):

@@ -30,22 +30,22 @@
 }
 
 /* * Custom: Force invisible */
-.mod-root  .metadata-container > .metadata-content > .metadata-properties > .metadata-property[data-property-key="zotero"], 
-.mod-root  .metadata-container > .metadata-content > .metadata-properties > .metadata-property[data-property-key="coverURL"], 
-.mod-root  .metadata-container > .metadata-content > .metadata-properties > .metadata-property[data-property-key="doubanDataTime"], 
-.mod-root  .metadata-container > .metadata-content > .metadata-properties > .metadata-property[data-property-key="kindle-sync"], 
-.mod-root  .metadata-container > .metadata-content > .metadata-properties > .metadata-property[data-property-key="ISBN"], 
-.mod-root  .metadata-container > .metadata-content > .metadata-properties > .metadata-property[data-property-key="authorList"], 
-.mod-root  .metadata-container > .metadata-content > .metadata-properties > .metadata-property[data-property-key="directorList"]
+.mod-root   .metadata-container > .metadata-content > .metadata-properties > .metadata-property[data-property-key="zotero"], 
+.mod-root   .metadata-container > .metadata-content > .metadata-properties > .metadata-property[data-property-key="coverURL"], 
+.mod-root   .metadata-container > .metadata-content > .metadata-properties > .metadata-property[data-property-key="doubanDataTime"], 
+.mod-root   .metadata-container > .metadata-content > .metadata-properties > .metadata-property[data-property-key="kindle-sync"], 
+.mod-root   .metadata-container > .metadata-content > .metadata-properties > .metadata-property[data-property-key="ISBN"], 
+.mod-root   .metadata-container > .metadata-content > .metadata-properties > .metadata-property[data-property-key="authorList"], 
+.mod-root   .metadata-container > .metadata-content > .metadata-properties > .metadata-property[data-property-key="directorList"]
  { display: none; }
 
 
 /* * Custom: Force visible */
- .metadata-container > .metadata-content > .metadata-properties > .metadata-property[data-property-key="variant"], 
- .metadata-container > .metadata-content > .metadata-properties > .metadata-property[data-property-key="aliases"], 
- .metadata-container > .metadata-content > .metadata-properties > .metadata-property[data-property-key="tags"], 
- .metadata-container > .metadata-content > .metadata-properties > .metadata-property[data-property-key="weread"], 
- .metadata-container > .metadata-content > .metadata-properties > .metadata-property[data-property-key="finishDate"], 
- .metadata-container > .metadata-content > .metadata-properties > .metadata-property[data-property-key="douban"]
+.mod-root   .metadata-container > .metadata-content > .metadata-properties > .metadata-property[data-property-key="variant"], 
+.mod-root   .metadata-container > .metadata-content > .metadata-properties > .metadata-property[data-property-key="aliases"], 
+.mod-root   .metadata-container > .metadata-content > .metadata-properties > .metadata-property[data-property-key="tags"], 
+.mod-root   .metadata-container > .metadata-content > .metadata-properties > .metadata-property[data-property-key="weread"], 
+.mod-root   .metadata-container > .metadata-content > .metadata-properties > .metadata-property[data-property-key="finishDate"], 
+.mod-root   .metadata-container > .metadata-content > .metadata-properties > .metadata-property[data-property-key="douban"]
  { display: flex; }
 

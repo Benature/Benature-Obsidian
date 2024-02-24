@@ -1,6 +1,8 @@
 .data-link-text[data-link-category="meeting"],
 .data-link-text[data-link-category="group"],
 .data-link-text[data-link-gender],
+.data-link-text[data-link-podcaster],
+.data-link-text[data-link-tags^="podcast/podcaster"],
 .data-link-text[data-link-tags^="课程"],
 .data-link-text[data-link-tags^="影视"],
 .data-link-text[data-link-tags*="DDS/M"],
@@ -97,8 +99,11 @@
   background-image: url("https://img.icons8.com/color/32/sunday.png");
 }
 
-.data-link-text[data-link-tags^="podcaster" i]::before {
-  content: "🎧";
+.data-link-text[data-link-tags^="podcast/podcaster" i]::before {
+  content: "🎙️";
+}
+.data-link-text[data-link-podcaster]::before {
+  content: "🎧 ";
 }
 
 .data-link-text[data-link-tags^="书" i]::before {

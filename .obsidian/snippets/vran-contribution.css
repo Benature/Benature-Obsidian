@@ -1,0 +1,19 @@
+.markdown-preview-view .contribution-widget img {
+  margin-top: 0pt;
+  margin-bottom: 0pt;
+}
+
+.contribution-widget img {
+  opacity: 1 !important;
+}
+
+.mod-horizontal .contribution-graph .cell {
+  min-width: 4px;
+  min-height: 4px;
+  height: 4px;
+}
+
+.mod-horizontal .contribution-graph .default .month-indicator,
+.mod-horizontal .contribution-graph .default .week-indicator {
+  font-size: 4px;
+}

@@ -53,18 +53,24 @@ class Daily {
   display(dv, R) {
     this.setup(dv, R);
     // this_.currentFilePath
-    if (this.isToday()) {
-      this.render_yesterdayNotes(dv, -1);
-    } else {
-      this.render_yesterdayNotes(dv);
-    }
+
     this.render_todayNotesInLastYears(dv);
 
     this.render_prev_next_daily_div(dv);
 
+    if (!this.isToday()) {
+      this.render_yesterdayNotes(dv);
+    }
+
     this.render_todayDiaryInLastYears(dv);
 
     this.render_todayCreateAndModify(dv);
+
+    this.render_toggl_track();
+
+    if (this.isToday()) {
+      this.render_yesterdayNotes(dv, -1);
+    }
   }
 
   render_yesterdayNotes(dv, offset = 0) {
@@ -97,9 +103,8 @@ class Daily {
     const WeeklyFolder = this.WeeklyFolder;
     function findWeek(p) {
       let f = p.file;
-      let weekFilePath = `"${WeeklyFolder}/${f.day.year}-${
-        f.day.weekNumber + 1
-      }W"`;
+      let weekFilePath = `"${WeeklyFolder}/${f.day.year}-${f.day.weekNumber + 1
+        }W"`;
       // return weekFilePath;
       let week = dv.pages(weekFilePath);
       return week.file.link.first();
@@ -233,7 +238,49 @@ class Daily {
           attr: { style: "line-height:1.5;" },
         });
       }
+
+
     }
+  }
+
+  render_toggl_track() {
+    const dv = this.dv;
+    const current = dv.current();
+    const day = this.calDay(0, "YYYY-MM-DD");
+
+    let code = [
+      "```toggl",
+      "SUMMARY",
+      `from ${day} to ${day}`,
+      `SORT DESC`,
+      `TITLE "Day"`,
+      "```",
+      "",
+      "```toggl",
+      "SUMMARY",
+      `from ${this.calDay(-7, "YYYY-MM-DD")} to ${day}`,
+      `SORT DESC`,
+      `TITLE "Week"`,
+      // "PAST 7 DAYS",
+      "```",
+    ];
+
+    if (current.togglIncludeProjects) {
+      let projects = current.togglIncludeProjects.map(p => `"${p}"`).join(", ");
+      let projects_string = current.togglIncludeProjects.join(", ");
+
+      code = code.concat([
+        '```toggl',
+        'SUMMARY',
+        `from ${this.calDay(-7, "YYYY-MM-DD")} to ${day}`,
+        `INCLUDE PROJECTS ${projects}`,
+        `TITLE "${projects_string} in Week"`,
+        '```',
+      ]);
+    }
+
+    dv.span(code.join("\n"))
+
   }
 
   render_prev_next_daily_div(dv) {
@@ -246,25 +293,23 @@ class Daily {
       {
         selector: "a.prev-daily",
         path: prevDay?.path[0],
-        text: `◀&nbsp; ${this.calDay(-1, "MM-DD ddd")}  &nbsp; <b>${
-          weekDaySign[dv.current().file.day.plus({ days: -1 }).weekday]
-        }</b>`,
+        text: `◀&nbsp; ${this.calDay(-1, "MM-DD ddd")}  &nbsp; <b>${weekDaySign[dv.current().file.day.plus({ days: -1 }).weekday]
+          }</b>`,
       },
       {
         selector: "a.next-daily",
         path: nextDay?.path[0],
-        text: `<b>${
-          weekDaySign[dv.current().file.day.plus({ days: 1 }).weekday]
-        }</b> &nbsp; ${this.calDay(1, "MM-DD ddd")} &nbsp;▶`,
+        text: `<b>${weekDaySign[dv.current().file.day.plus({ days: 1 }).weekday]
+          }</b> &nbsp; ${this.calDay(1, "MM-DD ddd")} &nbsp;▶`,
       },
     ];
 
     var content = ``;
     options.forEach(({ selector, path, text }) => {
-      if (path != "") {
+      if (path) {
         content += `<a class="internal-link prev-daily elegant-btn ready" href="${path}">${text}</a>`;
       } else {
-        content += `<a class="internal-link prev-daily elegant-btn"></a>`;
+        content += `<span class="internal-link prev-daily elegant-btn ready daily-empty">${text}</span>`;
       }
     });
     dv.el("div", `<div class="breadcrumbs-wrapper"> ${content} </div>`);
@@ -275,18 +320,14 @@ class Daily {
     const last_half_year = dv.pages(folder + this.calDay(-180) + `.md"`).file;
     dv.el(
       "div",
-      `<a class="internal-link" href="${
-        last_week?.path[0]
+      `<a class="internal-link" href="${last_week?.path[0]
       }">上周（${this.calDay(-7, "MM-DD")}）</a>` +
-        `<a class="internal-link" href="${
-          last_month?.path[0]
-        }">上月（${this.calDay(-30, "MM-DD")}）</a>` +
-        `<a class="internal-link" href="${
-          last_season?.path[0]
-        }">上季（${this.calDay(-90, "MM-DD")}）</a>` +
-        `<a class="internal-link" href="${
-          last_half_year?.path[0]
-        }">上半年（${this.calDay(-180, "MM-DD")}）</a>`,
+      `<a class="internal-link" href="${last_month?.path[0]
+      }">上月（${this.calDay(-30, "MM-DD")}）</a>` +
+      `<a class="internal-link" href="${last_season?.path[0]
+      }">上季（${this.calDay(-90, "MM-DD")}）</a>` +
+      `<a class="internal-link" href="${last_half_year?.path[0]
+      }">上半年（${this.calDay(-180, "MM-DD")}）</a>`,
       {
         cls: "dv-prev-dates",
         attr: { style: "" },
